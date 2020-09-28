@@ -201,8 +201,14 @@ export class Line extends PureComponent {
       return document.getElementsByClassName(className)[0];
     }
 
+    onClick(onClickCb) {
+      if (onClickCb) {
+        onClickCb();
+      }
+    }
+
     render() {
-        const { x0, y0, x1, y1, within = '' } = this.props;
+        const { x0, y0, x1, y1, within = '', onClick } = this.props;
 
         this.within = within ? this.findElement(within) : document.body;
 
@@ -231,9 +237,12 @@ export class Line extends PureComponent {
             borderTopWidth: this.props.borderWidth || defaultBorderWidth,
         };
 
+        const miaou = { cursor: 'pointer' };
+
         const props = {
             className: this.props.className,
-            style: Object.assign({}, defaultStyle, positionStyle),
+            onClick: onClick,
+            style: Object.assign({}, defaultStyle, positionStyle, miaou),
         }
 
         // We need a wrapper element to prevent an exception when then

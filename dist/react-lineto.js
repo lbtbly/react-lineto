@@ -383,6 +383,13 @@ var Line = exports.Line = function (_PureComponent) {
             return document.getElementsByClassName(className)[0];
         }
     }, {
+        key: 'onClick',
+        value: function onClick(onClickCb) {
+            if (onClickCb) {
+                onClickCb();
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this5 = this;
@@ -393,7 +400,8 @@ var Line = exports.Line = function (_PureComponent) {
                 x1 = _props2.x1,
                 y1 = _props2.y1,
                 _props2$within = _props2.within,
-                within = _props2$within === undefined ? '' : _props2$within;
+                within = _props2$within === undefined ? '' : _props2$within,
+                onClick = _props2.onClick;
 
 
             this.within = within ? this.findElement(within) : document.body;
@@ -421,9 +429,12 @@ var Line = exports.Line = function (_PureComponent) {
                 borderTopWidth: this.props.borderWidth || defaultBorderWidth
             };
 
+            var miaou = { cursor: 'pointer' };
+
             var props = {
                 className: this.props.className,
-                style: Object.assign({}, defaultStyle, positionStyle)
+                onClick: onClick,
+                style: Object.assign({}, defaultStyle, positionStyle, miaou)
 
                 // We need a wrapper element to prevent an exception when then
                 // React component is removed. This is because we manually
